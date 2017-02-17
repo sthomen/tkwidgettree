@@ -12,7 +12,7 @@ class FileParser(object):
 	"""
 	def parse(self, filename):
 		"""
-		Parse file and return data structure
+		Parse <filename> and return data structure
 		"""
 		with open(filename) as fp:
 			self.data=json.load(fp)
@@ -37,5 +37,5 @@ class FileParser(object):
 				result[k]=self.replace_tokens(v)
 
 			return result
-		elif isinstance(value, str):
+		else:
 			return value
