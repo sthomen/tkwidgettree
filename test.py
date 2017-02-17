@@ -3,40 +3,19 @@
 
 import tkinter as tk
 
+from ui.fileparser import FileParser
 from ui.tkwidgettree import TkWidgetTree
 
 root=tk.Tk()
 root.title('TkWidgetTree test')
 
-config={
-	'name': 'Frame',
-	'parent': root,
-	'pack': { 'fill': tk.BOTH },
-	'children': [
-		{
-			'name':	'Button',
-			'options': {
-				'text': 'Hello',
-				'command': quit
-			},
-			'pack': { 'side': tk.LEFT }
-		},
-		{
-			'id': 'world-button',
-			'name':	'Button',
-			'options': {
-				'text': 'World',
-				'command': quit
-			},
-			'pack': { 'side': tk.LEFT }
-		}
-	]
-}
-
-tree=TkWidgetTree.from_dict(config)
+tree=TkWidgetTree.from_dict(FileParser().parse("test.json"))
 tree.render()
 
+hello=tree.find('hello-button')
+hello.widget.config(command=quit)
+
 world=tree.find('world-button')
-world.widget.config(background='red')
+world.widget.config(background='red', command=quit)
 
 tree.mainloop()
