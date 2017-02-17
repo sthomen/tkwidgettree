@@ -123,4 +123,5 @@ class TkWidgetTree(object):
 				child.parent=self.widget
 				child.render()
 
-		self.widget.pack(self.pack)
+		if not self.name.__name__ in ('Menu'):
+			self.widget.pack(self.pack)
