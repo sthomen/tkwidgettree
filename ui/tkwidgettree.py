@@ -4,6 +4,61 @@ import tkinter as tk
 import tkinter.ttk as ttk
 
 class TkWidgetTree(object):
+	"""
+	This simple class wraps Tk (and ttk) widgets for easy construction from a dict
+	tree.
+
+	Usage is preferably done through the from_dict static method rather than 
+	initialising the object yourself.
+
+	example:
+
+    --8<--
+
+	root=tk.Tk()
+	root.title('TkWidgetTree test')
+
+	config={
+		'name': 'Frame',
+		'parent': root,
+		'pack': { 'fill': tk.BOTH },
+		'children': [
+			{
+				'name':	'Label',
+				'options': {
+					'text': 'Hello'
+				},
+				'pack': { 'side': tk.LEFT }
+			},
+			{
+				'id': 'world-button',
+				'name':	'Button',
+				'options': {
+					'text': 'World',
+					'command': quit
+				},
+				'pack': { 'side': tk.LEFT }
+			}
+		]
+	}
+
+	tree=TkWidgetTree.from_dict(config)
+	tree.render()
+	tree.mainloop()
+
+    --8<--
+
+	You can add identifiers to wanted widgets and access them with the recursive
+	find() method.
+
+	--8<--
+
+	world=tree.find('world-button')
+	world.widget.config(background='red')
+
+	--8<--
+
+	"""
 	def __init__(self, name, parent=None, id=None, options={}, pack={}, children=[]):
 		self.name=name
 		self.parent=parent
@@ -15,6 +70,9 @@ class TkWidgetTree(object):
 
 	@staticmethod
 	def from_dict(tree):
+		"""
+		Recursively interprets a dict into wrapped Tk widgets
+		"""
 		if not tree:
 			return None
 
@@ -23,6 +81,10 @@ class TkWidgetTree(object):
 		return TkWidgetTree(**tree)
 
 	def find(self, id):
+		"""
+		Recursively find widgets with a given id. Once an id is found it is passed back
+		through the stack, no care is taken to handle duplicate id:s.
+		"""
 		if id == self.id:
 			return self
 
@@ -34,9 +96,18 @@ class TkWidgetTree(object):
 		return None
 
 	def mainloop(self):
+		"""
+		Just call the widget's mainloop
+		"""
 		self.widget.mainloop()
 
 	def render(self):
+		"""
+		This method recursively renders the object tree into actual Tk widgets and
+		positions them using the pack method.
+
+		Currently, only pack is supported.
+		"""
 		if type(self.name) == str:
 			for module in (tk, ttk):
 				try:
