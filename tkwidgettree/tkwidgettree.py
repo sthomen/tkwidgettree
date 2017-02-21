@@ -10,54 +10,6 @@ class TkWidgetTree(object):
 
 	Usage is preferably done through the from_dict static method rather than 
 	initialising the object yourself.
-
-	example:
-
-    --8<--
-
-	root=tk.Tk()
-	root.title('TkWidgetTree test')
-
-	config={
-		'name': 'Frame',
-		'parent': root,
-		'pack': { 'fill': tk.BOTH },
-		'children': [
-			{
-				'name':	'Label',
-				'options': {
-					'text': 'Hello'
-				},
-				'pack': { 'side': tk.LEFT }
-			},
-			{
-				'id': 'world-button',
-				'name':	'Button',
-				'options': {
-					'text': 'World',
-					'command': quit
-				},
-				'pack': { 'side': tk.LEFT }
-			}
-		]
-	}
-
-	tree=TkWidgetTree.from_dict(config)
-	tree.render()
-	tree.mainloop()
-
-    --8<--
-
-	You can add identifiers to wanted widgets and access them with the recursive
-	find() method.
-
-	--8<--
-
-	world=tree.find('world-button')
-	world.widget.config(background='red')
-
-	--8<--
-
 	"""
 	def __init__(self, name, parent=None, id=None, options={}, pack={}, children=[]):
 		self.name=name
