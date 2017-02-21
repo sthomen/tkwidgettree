@@ -17,8 +17,8 @@ setup(
 	url = 'https://github.com/sthomen/tkwidgettree',
 	long_description=read('README'),
 	classifiers = [
-		'Development status :: 4 - Beta',
+		'Development Status :: 4 - Beta',
 		'Intended Audience :: Developers',
-		'Programming Language :: Python 3'
+		'Programming Language :: Python :: 3'
 	]
 );
