@@ -14,6 +14,7 @@ setup(
 	license = 'BSD',
 	keywords = 'Tk tkinter widget builder',
 	packages=[ 'tkwidgettree' ],
+	url = 'https://github.com/sthomen/tkwidgettree',
 	long_description=read('README'),
 	classifiers = [
 		'Development status :: 4 - Beta',
