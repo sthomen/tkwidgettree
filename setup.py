@@ -7,7 +7,7 @@ def read(fname):
 
 setup(
 	name='tkwidgettree',
-	version='1.0.0b1',
+	version='1.0.0b2',
 	author='Staffan Thomen',
 	author_email = 'duck@shangtai.net',
 	description = ('Convenience class for building Tk widgets trees from a dict or a JSON file'),
