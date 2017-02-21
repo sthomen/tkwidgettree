@@ -21,12 +21,15 @@ class TkWidgetTree(object):
 		self.id=id
 
 	@staticmethod
-	def from_dict(tree):
+	def from_dict(tree, root=None):
 		"""
 		Recursively interprets a dict into wrapped Tk widgets
 		"""
 		if not tree:
 			return None
+
+		if root:
+			tree['parent']=root
 
 		tree['children']=[TkWidgetTree.from_dict(child) for child in tree.get('children') or []]
 
